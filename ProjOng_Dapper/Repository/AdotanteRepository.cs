@@ -19,17 +19,6 @@ namespace ProjOng_Dapper.Repository
         {
             throw new NotImplementedException();
         }
-
-        public bool DeleteAllAdotante(List<Adotante> adotantes)
-        {
-            throw new NotImplementedException();
-        }
-
-        public bool DeleteOneAdotante(string cpf)
-        {
-            throw new NotImplementedException();
-        }
-
         public List<Adotante> GetAllAdotante()
         {
             throw new NotImplementedException();
@@ -39,7 +28,7 @@ namespace ProjOng_Dapper.Repository
         {
             throw new NotImplementedException();
         }
-
+        
         public bool UpdateBairro(string cpf, string bairro)
         {
             throw new NotImplementedException();
@@ -91,6 +80,15 @@ namespace ProjOng_Dapper.Repository
         }
 
         public bool UpdateUF(string cpf, string uf)
+        {
+            throw new NotImplementedException();
+        }
+        public bool DeleteAllAdotante(List<Adotante> adotantes)
+        {
+            throw new NotImplementedException();
+        }
+
+        public bool DeleteOneAdotante(string cpf)
         {
             throw new NotImplementedException();
         }
