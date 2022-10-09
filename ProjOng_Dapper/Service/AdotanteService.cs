@@ -75,11 +75,6 @@ namespace ProjOng_Dapper.Service
         {
             return _adotanteRepository.UpdateNumero(cpf, telefone);
         }
-        public bool DeleteAllAdotante(List<Adotante> adotantes)
-        {
-            return _adotanteRepository.DeleteAllAdotante(adotantes);
-        }
-
         public bool DeleteOneAdotante(string cpf)
         {
             return _adotanteRepository.DeleteOneAdotante(cpf);

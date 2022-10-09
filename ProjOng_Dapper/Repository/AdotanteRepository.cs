@@ -225,23 +225,6 @@ namespace ProjOng_Dapper.Repository
             }
             return updated;
         }
-        public bool DeleteAllAdotante(List<Adotante> adotantes)
-        {
-            bool deleted = false;
-            using (var db = new SqlConnection(_conn))
-            {
-                db.Open();
-                var execute = db.Execute(Adotante.DELETE_ALL);
-                if (execute > 0) //ou seja, se realmente a string de execução for executada
-                {
-                    Console.WriteLine("Todos os cadastros foram deletados!");
-                    //então, todos os dados foram deletados (deleted)
-                    deleted = true;
-                    return deleted;
-                }
-            }
-            return deleted;
-        }
         public bool DeleteOneAdotante(string cpf)
         {
             bool deleted = false;
@@ -259,5 +242,6 @@ namespace ProjOng_Dapper.Repository
             }
             return deleted;
         }
+        //verificar se o CPF existe
     }
 }

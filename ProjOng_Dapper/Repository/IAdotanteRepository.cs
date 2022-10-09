@@ -29,6 +29,5 @@ namespace ProjOng_Dapper.Repository
         bool UpdateUF(string cpf, string uf);
         bool UpdateTelefone(string cpf, string telefone);
         bool DeleteOneAdotante(string cpf);
-        bool DeleteAllAdotante(List<Adotante> adotantes);
     }
 }

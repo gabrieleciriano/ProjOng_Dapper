@@ -55,7 +55,6 @@ namespace ProjOng_Dapper
         }
         public static void MenuAdotante()
         {
-
             int opc = 0;
             do
             {
@@ -67,10 +66,9 @@ namespace ProjOng_Dapper
                 Console.WriteLine("4 - Visualizar todos os adotantes cadastrados");
                 Console.WriteLine("5 - Editar dados de um cadastro existente");
                 Console.WriteLine("6 - Deletar adotante específico");
-                Console.WriteLine("7 - Deletar cadastro de todos os adotantes");
                 Console.WriteLine("\n>>Informe o que deseja acessar...");
                 opc = int.Parse(Console.ReadLine());
-                if (opc <= 0 || opc > 7)
+                if (opc <= 0 || opc > 6)
                     Console.WriteLine("OPÇÃO INVÁLIDA! Informe um número válido para acessar o menu:");
                 else
                 {
@@ -104,11 +102,7 @@ namespace ProjOng_Dapper
                             break;
 
                         case 6:
-
-                            break;
-
-                        case 7:
-
+                            DeleteOneAdotante();
                             break;
 
                         default:
@@ -116,7 +110,7 @@ namespace ProjOng_Dapper
                             break;
                     }
                 }
-            } while (opc <= 0 || opc > 7);
+            } while (opc <= 0 || opc > 6);
         }
         static public void CadastrarAdotante()
         {
@@ -248,8 +242,8 @@ namespace ProjOng_Dapper
             } while (adotante.Telefone.Length > 11);
 
             new AdotanteService().AddAdotante(adotante);
-            Console.ReadKey();
             Console.WriteLine("**Cadastro realizado com sucesso!**");
+            Console.ReadKey();
         }
         static public void SelectSpecificAdotante()
         {
@@ -258,7 +252,23 @@ namespace ProjOng_Dapper
             Adotante adotante = new AdotanteService().GetOneAdotante(cpf);
             Console.WriteLine("----------------------------------------");
             Console.WriteLine(adotante.ToString());
+            Console.WriteLine("-----------------------------------------");
             Console.ReadKey();
+        }
+        static public void SelectAllAdotante()
+        {
+            Console.WriteLine("Realmente deseja vizualizar todos os cadastros?");
+            int escolha = int.Parse(Console.ReadLine());
+            if(escolha == 1)
+            {
+                Adotante adotante = new Adotante();
+                Console.WriteLine("---------------------------------------------------");
+                new AdotanteService().GetAllAdotante().ForEach(x => Console.WriteLine(x));
+                Console.WriteLine("----------------------------------------------------");
+                Console.ReadKey();
+            }
+            else
+                Console.WriteLine("Visualização cancelada!");
         }
         static public void UpdateAdotante()
         {
@@ -488,6 +498,28 @@ namespace ProjOng_Dapper
                     Console.WriteLine("OPÇÃO INVÁLIDA! Informe uma das opções segundo o menu!");
                     break;
             }
+        }
+        static public void DeleteOneAdotante()
+        {
+            Console.WriteLine("Informe o CPF do adotante que deseja deletar o cadastro: ");
+            string cpf = Console.ReadLine();
+            Adotante adotante = new AdotanteService().GetOneAdotante(cpf);
+            Console.WriteLine("----------------------------------------");
+            Console.WriteLine(adotante.ToString());
+            Console.ReadKey();
+            Console.WriteLine("Deseja realmente deletar esse cadastro? [1 - SIM, 2 - NÃO]: ");
+            int escolha = int.Parse(Console.ReadLine());
+            if(escolha == 1)
+            {
+                if (new AdotanteService().DeleteOneAdotante(cpf) == true)
+                {
+                    Console.ReadKey();
+                }
+                else
+                    Console.WriteLine("\nAlteração inválida!");
+            }
+            else
+                Console.WriteLine("Exclusão do cadastro cancelada!");
         }
         static void Main(string[] args)
         {
