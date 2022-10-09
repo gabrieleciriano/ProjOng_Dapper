@@ -18,7 +18,6 @@ namespace ProjOng_Dapper.Repository
             //Passar a string de conexão
             _conn = DataBaseConfiguration.Get();
         }
-
         public bool AddAdotante(Adotante adotante)
         {
             bool result = false;
