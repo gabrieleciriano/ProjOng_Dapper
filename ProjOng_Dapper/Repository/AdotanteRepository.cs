@@ -52,7 +52,13 @@ namespace ProjOng_Dapper.Repository
         }
         public bool UpdateBairro(string cpf, string bairro)
         {
-            throw new NotImplementedException();
+            using (var db = new SqlConnection(_conn))
+            {
+                db.Open();
+                var adotante = db.Execute(Adotante.U, new { CPF = cpf });
+                return (Adotante)adotante;
+            }
+
         }
 
         public bool UpdateCEP(string cpf, string cep)

@@ -32,12 +32,22 @@ namespace ProjOng_Dapper.Model
         public readonly static string SELECTONE = "SELECT Nome, CPF, Sexo, DataNascimento, Logradouro, Numero, CEP, Bairro, Complemento, Cidade, UF, Telefone FROM dbo.Adotante WHERE CPF = @CPF";
         #endregion
         #region DeleteOne
-        public readonly static string DELETEONE = "DELETE FROM dbo.Adotante WHERE CPF = @CPF";
+        public readonly static string DELETE_ONE = "DELETE FROM dbo.Adotante WHERE CPF = @CPF";
         #endregion
         #region DeleteAll
-        public readonly static string DELETEALL = "DELETE FROM dbo.Adotante";
+        public readonly static string DELETE_ALL = "DELETE FROM dbo.Adotante";
         #endregion
-        //fazer o update de cada propriedade
+        public readonly static string UPDATE_NOME = "UPDATE dbo.Adotante SET Nome= @Nome WHERE CPF=@CPF";
+        public readonly static string UPDATE_SEXO = "UPDATE dbo.Adotante SET Sexo= @Sexo WHERE CPF=@CPF";
+        public readonly static string UPDATE_DATANASC = "UPDATE dbo.Adotante SET DataNascimento= @DataNascimento WHERE CPF=@CPF";
+        public readonly static string UPDATE_LOGRADOURO = "UPDATE dbo.Adotante SET Logradouro= @Logradouro WHERE CPF=@CPF";
+        public readonly static string UPDATE_NUMERO = "UPDATE dbo.Adotante SET Numero= @Numero WHERE CPF=@CPF";
+        public readonly static string UPDATE_CEP = "UPDATE dbo.Adotante SET CEP= @CEP WHERE CPF=@CPF";
+        public readonly static string UPDATE_BAIRRO = "UPDATE dbo.Adotante SET Bairro= @Bairro WHERE CPF=@CPF";
+        public readonly static string UPDATE_COMPLEMENTO = "UPDATE dbo.Adotante SET Complemento= @Complemento WHERE CPF=@CPF";
+        public readonly static string UPDATE_CIDADE = "UPDATE dbo.Adotante SET Cidade= @Cidade WHERE CPF=@CPF";
+        public readonly static string UPDATE_UF = "UPDATE dbo.Adotante SET UF= @UF WHERE CPF=@CPF";
+        public readonly static string UPDATE_TELEFONE = "UPDATE dbo.Adotante SET Telefone= @Telefone WHERE CPF=@CPF";
         public override string ToString()
         {
             return $"CPF: {this.CPF} \nNome: {this.Nome} \nSexo: {this.Sexo} \nData de Nascimento: {this.DataNascimento} \nEndereco: \nLogradouro {this.Logradouro}, Numero: {this.Numero}, CEP: {this.CEP}, Bairro: {this.Bairro}, Complemento: {this.Complemento}, Cidade: {this.Cidade}, UF: {this.UF}, Telefone: {this.Telefone}".ToString();
