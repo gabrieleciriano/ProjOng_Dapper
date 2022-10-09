@@ -97,19 +97,54 @@ namespace ProjOng_Dapper.Repository
                 }
             }
             return updated;
-
         }
         public bool UpdateLogradouro(string cpf, string logradouro)
         {
-            throw new NotImplementedException();
+            bool updated = false;
+            using (var db = new SqlConnection(_conn))
+            {
+                db.Open();
+                var execute = db.Execute(Adotante.UPDATE_LOGRADOURO, new { Logradouro = logradouro, CPF = cpf });
+                if (execute != 0) //ou seja, se realmente a string de execução for modificada
+                {
+                    //então, o dado daquela coluna foi atualizado (updated)
+                    updated = true;
+                    return updated;
+                }
+            }
+            return updated;
         }
         public bool UpdateNumero(string cpf, string numero)
         {
-            throw new NotImplementedException();
+            bool updated = false;
+            using (var db = new SqlConnection(_conn))
+            {
+                db.Open();
+                var execute = db.Execute(Adotante.UPDATE_NUMERO, new { CPF = cpf, Numero = numero});
+                if (execute != 0) //ou seja, se realmente a string de execução for modificada
+                {
+                    //então, o dado daquela coluna foi atualizado (updated)
+                    updated = true;
+                    return updated;
+                }
+            }
+            return updated;
         }
         public bool UpdateCEP(string cpf, string cep)
         {
-            throw new NotImplementedException();
+            bool updated = false;
+            using (var db = new SqlConnection(_conn))
+            {
+                db.Open();
+                var execute = db.Execute(Adotante.UPDATE_CEP, new { CPF = cpf, CEP = cep });
+                if (execute != 0) //ou seja, se realmente a string de execução for modificada
+                {
+                    //então, o dado daquela coluna foi atualizado (updated)
+                    updated = true;
+                    return updated;
+                }
+            }
+            return updated;
         }
         public bool UpdateBairro(string cpf, string bairro)
         {
@@ -117,7 +152,7 @@ namespace ProjOng_Dapper.Repository
             using (var db = new SqlConnection(_conn))
             {
                 db.Open();
-                var execute = db.Execute(Adotante.UPDATE_BAIRRO, new { Bairro = bairro, CPF = cpf });
+                var execute = db.Execute(Adotante.UPDATE_BAIRRO, new { CPF = cpf,Bairro = bairro });
                 if (execute !=0) //ou seja, se realmente a string de execução for modificada
                 {
                     //então, o dado daquela coluna foi atualizado (updated)
@@ -129,27 +164,84 @@ namespace ProjOng_Dapper.Repository
         }
         public bool UpdateComplemento(string cpf, string complemento)
         {
-            throw new NotImplementedException();
+            bool updated = false;
+            using (var db = new SqlConnection(_conn))
+            {
+                db.Open();
+                var execute = db.Execute(Adotante.UPDATE_COMPLEMENTO, new { CPF = cpf, Complemento = complemento, });
+                if (execute != 0) //ou seja, se realmente a string de execução for modificada
+                {
+                    //então, o dado daquela coluna foi atualizado (updated)
+                    updated = true;
+                    return updated;
+                }
+            }
+            return updated;
         }
         public bool UpdateCidade(string cpf, string cidade)
         {
-            throw new NotImplementedException();
+            bool updated = false;
+            using (var db = new SqlConnection(_conn))
+            {
+                db.Open();
+                var execute = db.Execute(Adotante.UPDATE_CIDADE, new { CPF = cpf, Cidade = cidade, });
+                if (execute != 0) //ou seja, se realmente a string de execução for modificada
+                {
+                    //então, o dado daquela coluna foi atualizado (updated)
+                    updated = true;
+                    return updated;
+                }
+            }
+            return updated;
         }
         public bool UpdateUF(string cpf, string uf)
         {
-            throw new NotImplementedException();
-
+            bool updated = false;
+            using (var db = new SqlConnection(_conn))
+            {
+                db.Open();
+                var execute = db.Execute(Adotante.UPDATE_UF, new { CPF = cpf, UF = uf, });
+                if (execute != 0) //ou seja, se realmente a string de execução for modificada
+                {
+                    //então, o dado daquela coluna foi atualizado (updated)
+                    updated = true;
+                    return updated;
+                }
+            }
+            return updated;
         }
-
         public bool UpdateTelefone(string cpf, string telefone)
         {
-            throw new NotImplementedException();
+            bool updated = false;
+            using (var db = new SqlConnection(_conn))
+            {
+                db.Open();
+                var execute = db.Execute(Adotante.UPDATE_TELEFONE, new { CPF = cpf, Telefone = telefone, });
+                if (execute != 0) //ou seja, se realmente a string de execução for modificada
+                {
+                    //então, o dado daquela coluna foi atualizado (updated)
+                    updated = true;
+                    return updated;
+                }
+            }
+            return updated;
         }
-
-       
         public bool DeleteAllAdotante(List<Adotante> adotantes)
         {
-            throw new NotImplementedException();
+            bool deleted = false;
+            using (var db = new SqlConnection(_conn))
+            {
+                db.Open();
+                var execute = db.Execute(Adotante.DELETE_ALL);
+                if (execute != 0) //ou seja, se realmente a string de execução for modificada
+                {
+                    //então, o dado daquela coluna foi atualizado (updated)
+                    deleted = true;
+                    return deleted;
+                }
+            }
+            return deleted;
+
         }
 
         public bool DeleteOneAdotante(string cpf)
