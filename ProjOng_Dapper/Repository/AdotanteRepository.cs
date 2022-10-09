@@ -1,6 +1,9 @@
-﻿using ProjOng_Dapper.Model;
+﻿using Dapper;
+using ProjOng_Dapper.Config;
+using ProjOng_Dapper.Model;
 using System;
 using System.Collections.Generic;
+using System.Data.SqlClient;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -13,22 +16,40 @@ namespace ProjOng_Dapper.Repository
         public AdotanteRepository()
         {
             //Passar a string de conexão
-            _conn = "";
+            _conn = DataBaseConfiguration.Get();
         }
+
         public bool AddAdotante(Adotante adotante)
         {
-            throw new NotImplementedException();
+            bool result = false;
+            using(var db = new SqlConnection(_conn))
+            {
+                db.Open();
+                db.Execute(Adotante.INSERT, adotante);
+                result = true;
+                //nao preciso de um close se estou usando o using
+                //o objeto de conexão db é destruido apos a utilização do using
+            }
+            return result;
         }
         public List<Adotante> GetAllAdotante()
         {
-            throw new NotImplementedException();
+            using(var db = new SqlConnection(_conn))
+            {
+                db.Open();
+                var adotantes = db.Query<Adotante>(Adotante.SELECT);
+                return (List<Adotante>) adotantes;
+            }
         }
-
         public Adotante GetOneAdotante(string cpf)
         {
-            throw new NotImplementedException();
+            using (var db = new SqlConnection(_conn))
+            {
+                db.Open();
+                var adotante = db.QueryFirstOrDefault<Adotante>(Adotante.SELECTONE, new {CPF = cpf });
+                return (Adotante) adotante;
+            }
         }
-        
         public bool UpdateBairro(string cpf, string bairro)
         {
             throw new NotImplementedException();
