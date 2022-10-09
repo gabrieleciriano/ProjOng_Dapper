@@ -1,6 +1,7 @@
 ﻿using ProjOng_Dapper.Model;
 using ProjOng_Dapper.Service;
 using System;
+using System.Linq;
 
 namespace ProjOng_Dapper
 {
@@ -20,7 +21,10 @@ namespace ProjOng_Dapper
                 Console.WriteLine("\n>>Informe o que deseja acessar...");
                 opc = int.Parse(Console.ReadLine());
                 if (opc < 0 || opc > 3)
+                {
                     Console.WriteLine("OPÇÃO INVÁLIDA! Informe um número válido para acessar o menu:");
+
+                }
                 else
                 {
                     Console.Clear();
@@ -82,14 +86,21 @@ namespace ProjOng_Dapper
                             break;
 
                         case 3:
-
+                            Console.Clear();
+                            Adotante adotante = new Adotante();
+                            Console.WriteLine("**BUSCAR CADASTRO ESPECÍFICO**");
+                            SelectSpecificAdotante();
                             break;
 
                         case 4:
-
-
+                            // Console.WriteLine("Realmente deseja vizualizar todos os cadastros?");
+                            adotante = new Adotante();
+                            new AdotanteService().GetAllAdotante().ForEach(x => Console.WriteLine(x));
+                            Console.ReadKey();
+                            //Console.WriteLine("Cheguei aqui");
+                            break;
                         case 5:
-
+                            UpdateAdotante();
                             break;
 
                         case 6:
@@ -97,10 +108,6 @@ namespace ProjOng_Dapper
                             break;
 
                         case 7:
-
-                            break;
-
-                        case 8:
 
                             break;
 
@@ -239,36 +246,252 @@ namespace ProjOng_Dapper
 
                 }
             } while (adotante.Telefone.Length > 11);
-           
+
             new AdotanteService().AddAdotante(adotante);
             Console.ReadKey();
             Console.WriteLine("**Cadastro realizado com sucesso!**");
         }
+        static public void SelectSpecificAdotante()
+        {
+            Console.WriteLine("Informe o CPF do adotante que deseja visualizar o cadastro: ");
+            string cpf = Console.ReadLine();
+            Adotante adotante = new AdotanteService().GetOneAdotante(cpf);
+            Console.WriteLine("----------------------------------------");
+            Console.WriteLine(adotante.ToString());
+            Console.ReadKey();
+        }
+        static public void UpdateAdotante()
+        {
+            //usar um console clear depois
+            Console.WriteLine("Informe o CPF do adotante que deseja editar o cadastro: ");
+            string cpf = Console.ReadLine();
+            Console.WriteLine("--------------------------------------------------");
+            Adotante adotante = new AdotanteService().GetOneAdotante(cpf);
+            Console.WriteLine(adotante.ToString());
+
+            Console.WriteLine(">>>EDITAR CADASTRO<<<");
+            Console.WriteLine("0 - VOLTAR AO MENU ADOTANTE");
+            Console.WriteLine("1 - Editar NOME");
+            Console.WriteLine("2 - Editar SEXO");
+            Console.WriteLine("3 - Editar DATA DE NASCIMENTO");
+            Console.WriteLine("4 - Editar LOGRADOURO");
+            Console.WriteLine("5 - Editar NÚMERO");
+            Console.WriteLine("6 - Editar CEP");
+            Console.WriteLine("7 - Editar BAIRRO");
+            Console.WriteLine("8 - Editar COMPLEMENTO");
+            Console.WriteLine("9 - Editar CIDADE");
+            Console.WriteLine("10 - Editar UF");
+            Console.WriteLine("11 - Editar TELEFONE");
+            Console.WriteLine("\nEscolha entre as opções: ");
+            int op = int.Parse(Console.ReadLine());
+            switch (op)
+            {
+                case 0:
+                    MenuAdotante();
+                    break;
+                case 1:
+                    Console.WriteLine("Informe o novo nome: ");
+                    string nome = Console.ReadLine();
+                    if (new AdotanteService().UpdateNome(cpf, nome) == true)
+                    {
+                        Console.WriteLine("\nNome Alterado!");
+                        Console.ReadKey();
+                    }
+                    else
+                        Console.WriteLine("\nAlteração inválida!");
+                    break;
+
+                case 2:
+                    char s;
+                    do
+                    {
+                        Console.WriteLine("Informe o novo sexo: (M - Masculino, F - Feminino, N - Não desejo informar) : ");
+                        s = char.Parse(Console.ReadLine().ToUpper());
+                        if (s != 'M' && s != 'F' && s != 'N')
+                        {
+                            Console.WriteLine("OPÇÃO INVÁLIDA! INFORME (M, F OU N) ");
+                        }
+                        else
+                        {
+                            if (new AdotanteService().UpdateSexo(cpf, s) == true)
+                            {
+                                Console.WriteLine("\nSexo Alterado!");
+                                Console.ReadKey();
+                            }
+                            else
+                                Console.WriteLine("\nAlteração inválida!");
+                        }
+                    } while (s != 'M' && s != 'F' && s != 'N');
+                    break;
+
+                case 3:
+                    DateTime datanasc;
+                    Console.Write("Informe a nova Data de Nascimento: ");
+                    while (!DateTime.TryParse(Console.ReadLine(), out datanasc))
+                    {
+                        if (datanasc > DateTime.Now)
+                        {
+                            Console.WriteLine("OPÇÃO INVÁLIDA! Informe uma data válida!");
+                        }
+                    }
+                    string dt = datanasc.ToString("dd/MM/yyyy");
+                    if (new AdotanteService().UpdateDataNascimento(cpf, dt) == true)
+                    {
+                        Console.WriteLine("\nData de nascimento alterada!");
+                        Console.ReadKey();
+                    }
+                    else
+                        Console.WriteLine("\nAlteração inválida!");
+                    break;
+
+                case 4:
+                    Console.WriteLine("Novo Logradouro: ");
+                    string logradouro = Console.ReadLine();
+                    if (new AdotanteService().UpdateLogradouro(cpf, logradouro) == true)
+                    {
+                        Console.WriteLine("\nLogradouro alterado!");
+                        Console.ReadKey();
+                    }
+                    else
+                        Console.WriteLine("\nAlteração inválida!");
+                    break;
+                case 5:
+                    Console.WriteLine("Novo Número: ");
+                    string num = Console.ReadLine();
+                    if (new AdotanteService().UpdateNumero(cpf, num) == true)
+                    {
+                        Console.WriteLine("\nNúmero alterado!");
+                        Console.ReadKey();
+                    }
+                    else
+                        Console.WriteLine("\nAlteração inválida!");
+                    break;
+
+                case 6:
+                    Console.WriteLine("Novo CEP: ");
+                    string cep = Console.ReadLine();
+                    if (new AdotanteService().UpdateCEP(cpf, cep) == true)
+                    {
+                        Console.WriteLine("\nCEP alterado!");
+                        Console.ReadKey();
+                    }
+                    else
+                        Console.WriteLine("\nAlteração inválida!");
+                    break;
+                case 7:
+
+                    Console.WriteLine("Novo Bairro: ");
+                    string b = Console.ReadLine();
+                    if (new AdotanteService().UpdateBairro(cpf, b) == true)
+                    {
+                        Console.WriteLine("\nBairro alterado!");
+                        Console.ReadKey();
+                    }
+                    else
+                        Console.WriteLine("\nAlteração inválida!");
+                    break;
+                case 8:
+                    int opcao = 0;
+                    string comp;
+                    do
+                    {
+                        Console.WriteLine("Deseja adicionar um complemento? (1 - SIM, 2 - NÃO): ");
+                        try
+                        {
+                            opcao = int.Parse(Console.ReadLine());
+                            if (opcao == 1)
+                            {
+                                do
+                                {
+                                    Console.WriteLine("Novo complemento: ");
+                                    comp = Console.ReadLine();
+                                    if (comp.Length == 0 && comp.Length > 30)
+                                    {
+                                        Console.WriteLine("\nIMPOSSÍVEL CADASTRAR! \nTENTE NOVAMENTE!");
+
+                                    }
+                                    else
+                                    {
+                                        if (new AdotanteService().UpdateComplemento(cpf, comp) == true)
+                                        {
+                                            Console.WriteLine("\nComplemento alterado!");
+                                            Console.ReadKey();
+                                        }
+                                        else
+                                            Console.WriteLine("\nAlteração inválida!");
+                                    }
+                                } while (comp.Length > 30);
+                            }
+                            else
+                                comp = "--";
+                        }
+                        catch
+                        {
+                            Console.WriteLine("Informe 1 ou 2! ");
+                        }
+                    } while (opcao < 0 || opcao != 1 && opcao != 2);
+                    break;
+                case 9:
+
+                    Console.WriteLine("Cidade: ");
+                    string c = Console.ReadLine();
+                    if (new AdotanteService().UpdateCidade(cpf, c) == true)
+                    {
+                        Console.WriteLine("\nCidade alterada!");
+                        Console.ReadKey();
+                    }
+                    else
+                        Console.WriteLine("\nAlteração inválida!");
+                    break;
+
+                case 10:
+                    Console.WriteLine("UF: [Ex: SP]");
+                    string uf = Console.ReadLine();
+                    if (new AdotanteService().UpdateUF(cpf, uf) == true)
+                    {
+                        Console.WriteLine("\nUF alterado!");
+                        Console.ReadKey();
+                    }
+                    else
+                        Console.WriteLine("\nAlteração inválida!");
+                    break;
+
+                case 11:
+                    string tel;
+                    Console.WriteLine("Novo número de telefone com DDD sem caracteres especiais: [Ex: 16999999999]  ");
+                    try
+                    {
+                        tel = Console.ReadLine();
+                        if (tel.Length == 0 && tel.Length > 11)
+                        {
+                            Console.WriteLine("\nIMPOSSÍVEL CADASTRAR! \nTENTE NOVAMENTE!");
+
+                        }
+                        else
+                        {
+                            if (new AdotanteService().UpdateTelefone(cpf, tel) == true)
+                            {
+                                Console.WriteLine("\nTelefone alterado!");
+                                Console.ReadKey();
+                            }
+                            else
+                                Console.WriteLine("\nAlteração inválida!");
+                        }
+                    }
+                    catch
+                    {
+                        Console.WriteLine("Informe um valor numero de até 11 dígitos! ");
+                    }
+                    break;
+
+                default:
+                    Console.WriteLine("OPÇÃO INVÁLIDA! Informe uma das opções segundo o menu!");
+                    break;
+            }
+        }
         static void Main(string[] args)
         {
             MenuPrincipal();
-            //Console.WriteLine("começando...");
-
-            //Adotante adotante = new Adotante()
-            //{
-            //    Nome = "Gabriele",
-            //    CPF = "52609924828",
-            //    Sexo = 'F',
-            //    DataNascimento = "28/03/2003",
-            //    Logradouro = "Avenida Jose Cerqueira",
-            //    Numero = "1040",
-            //    CEP = "15996167",
-            //    Bairro = "Jardim Santa Marta",
-            //    Complemento = "Nao tenho",
-            //    Cidade = "Matão",
-            //    UF = "SP",
-            //    Telefone = "16999758483"
-            //};
-
-            //new AdotanteService().GetAllAdotante().ForEach(x => Console.WriteLine(x));
-
-            //Console.WriteLine("FOI!");
-
         }
     }
 }

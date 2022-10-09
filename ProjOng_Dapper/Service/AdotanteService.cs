@@ -39,7 +39,7 @@ namespace ProjOng_Dapper.Service
         {
             return _adotanteRepository.UpdateSexo(cpf, sexo);
         }
-        public bool UpdateDataNascimento(string cpf, DateTime datanasc)
+        public bool UpdateDataNascimento(string cpf, string datanasc)
         {
             return _adotanteRepository.UpdateDataNascimento(cpf, datanasc);
         }

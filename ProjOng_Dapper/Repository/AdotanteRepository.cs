@@ -45,8 +45,8 @@ namespace ProjOng_Dapper.Repository
             using (var db = new SqlConnection(_conn))
             {
                 db.Open();
-                var adotante = db.QueryFirst<Adotante>(Adotante.SELECTONE, new { CPF = cpf });
-                return (Adotante)adotante;
+                var adotante = db.QueryFirstOrDefault<Adotante>(Adotante.SELECTONE, new { CPF = cpf });
+                return (Adotante) adotante;
             }
         }
         public bool UpdateNome(string cpf, string nome)
@@ -81,7 +81,7 @@ namespace ProjOng_Dapper.Repository
             }
             return updated;
         }
-        public bool UpdateDataNascimento(string cpf, DateTime datanasc)
+        public bool UpdateDataNascimento(string cpf, string datanasc)
         {
             bool updated = false;
             using (var db = new SqlConnection(_conn))

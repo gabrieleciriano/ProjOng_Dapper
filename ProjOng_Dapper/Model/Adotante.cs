@@ -50,7 +50,7 @@ namespace ProjOng_Dapper.Model
         public readonly static string UPDATE_TELEFONE = "UPDATE dbo.Adotante SET Telefone= @Telefone WHERE CPF=@CPF";
         public override string ToString()
         {
-            return $"CPF: {this.CPF} \nNome: {this.Nome} \nSexo: {this.Sexo} \nData de Nascimento: {this.DataNascimento} \nEndereco: \nLogradouro {this.Logradouro}, Numero: {this.Numero}, CEP: {this.CEP}, Bairro: {this.Bairro}, Complemento: {this.Complemento}, Cidade: {this.Cidade}, UF: {this.UF}, Telefone: {this.Telefone}".ToString();
+            return $"CPF: {this.CPF} \nNome: {this.Nome} \nSexo: {this.Sexo} \nData de Nascimento: {this.DataNascimento} \nEndereco: \nLogradouro {this.Logradouro}, Numero: {this.Numero}, CEP: {this.CEP}, Bairro: {this.Bairro}, Complemento: {this.Complemento}, Cidade: {this.Cidade}, UF: {this.UF} \nTelefone: {this.Telefone} \n---------------------------------------------".ToString();
         }
     }
 }
