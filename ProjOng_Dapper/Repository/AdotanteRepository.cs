@@ -50,55 +50,95 @@ namespace ProjOng_Dapper.Repository
                 return (Adotante) adotante;
             }
         }
-        public bool UpdateBairro(string cpf, string bairro)
+        public bool UpdateNome(string cpf, string nome)
         {
+            bool updated = false;
             using (var db = new SqlConnection(_conn))
             {
                 db.Open();
-                var adotante = db.Execute(Adotante.U, new { CPF = cpf });
-                return (Adotante)adotante;
+                var execute = db.Execute(Adotante.UPDATE_NOME, new { Nome = nome, CPF = cpf });
+                if (execute != 0) //ou seja, se realmente a string de execução for modificada
+                {
+                    //então, o dado daquela coluna foi atualizado (updated)
+                    updated = true;
+                    return updated;
+                }
             }
-
+            return updated;
         }
-
-        public bool UpdateCEP(string cpf, string cep)
+        public bool UpdateSexo(string cpf, char sexo)
         {
-            throw new NotImplementedException();
+            bool updated = false;
+            using (var db = new SqlConnection(_conn))
+            {
+                db.Open();
+                var execute = db.Execute(Adotante.UPDATE_SEXO, new { Sexo = sexo, CPF = cpf });
+                if (execute != 0) //ou seja, se realmente a string de execução for modificada
+                {
+                    //então, o dado daquela coluna foi atualizado (updated)
+                    updated = true;
+                    return updated;
+                }
+            }
+            return updated;
         }
-
-        public bool UpdateCidade(string cpf, string cidade)
-        {
-            throw new NotImplementedException();
-        }
-
-        public bool UpdateComplemento(string cpf, string complemento)
-        {
-            throw new NotImplementedException();
-        }
-
         public bool UpdateDataNascimento(string cpf, DateTime datanasc)
         {
-            throw new NotImplementedException();
-        }
+            bool updated = false;
+            using (var db = new SqlConnection(_conn))
+            {
+                db.Open();
+                var execute = db.Execute(Adotante.UPDATE_DATANASC, new { DataNascimento = datanasc, CPF = cpf });
+                if (execute != 0) //ou seja, se realmente a string de execução for modificada
+                {
+                    //então, o dado daquela coluna foi atualizado (updated)
+                    updated = true;
+                    return updated;
+                }
+            }
+            return updated;
 
+        }
         public bool UpdateLogradouro(string cpf, string logradouro)
         {
             throw new NotImplementedException();
         }
-
-        public bool UpdateNome(string cpf, string nome)
-        {
-            throw new NotImplementedException();
-        }
-
         public bool UpdateNumero(string cpf, string numero)
         {
             throw new NotImplementedException();
         }
-
-        public bool UpdateSexo(string cpf, char sexo)
+        public bool UpdateCEP(string cpf, string cep)
         {
             throw new NotImplementedException();
+        }
+        public bool UpdateBairro(string cpf, string bairro)
+        {
+            bool updated = false;
+            using (var db = new SqlConnection(_conn))
+            {
+                db.Open();
+                var execute = db.Execute(Adotante.UPDATE_BAIRRO, new { Bairro = bairro, CPF = cpf });
+                if (execute !=0) //ou seja, se realmente a string de execução for modificada
+                {
+                    //então, o dado daquela coluna foi atualizado (updated)
+                    updated = true;
+                    return updated;
+                }
+            }
+            return updated;
+        }
+        public bool UpdateComplemento(string cpf, string complemento)
+        {
+            throw new NotImplementedException();
+        }
+        public bool UpdateCidade(string cpf, string cidade)
+        {
+            throw new NotImplementedException();
+        }
+        public bool UpdateUF(string cpf, string uf)
+        {
+            throw new NotImplementedException();
+
         }
 
         public bool UpdateTelefone(string cpf, string telefone)
@@ -106,10 +146,7 @@ namespace ProjOng_Dapper.Repository
             throw new NotImplementedException();
         }
 
-        public bool UpdateUF(string cpf, string uf)
-        {
-            throw new NotImplementedException();
-        }
+       
         public bool DeleteAllAdotante(List<Adotante> adotantes)
         {
             throw new NotImplementedException();
