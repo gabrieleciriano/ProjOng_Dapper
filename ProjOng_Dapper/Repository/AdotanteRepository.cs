@@ -22,7 +22,7 @@ namespace ProjOng_Dapper.Repository
         public bool AddAdotante(Adotante adotante)
         {
             bool result = false;
-            using(var db = new SqlConnection(_conn))
+            using (var db = new SqlConnection(_conn))
             {
                 db.Open();
                 db.Execute(Adotante.INSERT, adotante);
@@ -34,11 +34,11 @@ namespace ProjOng_Dapper.Repository
         }
         public List<Adotante> GetAllAdotante()
         {
-            using(var db = new SqlConnection(_conn))
+            using (var db = new SqlConnection(_conn))
             {
                 db.Open();
                 var adotantes = db.Query<Adotante>(Adotante.SELECT);
-                return (List<Adotante>) adotantes;
+                return (List<Adotante>)adotantes;
             }
         }
         public Adotante GetOneAdotante(string cpf)
@@ -46,8 +46,8 @@ namespace ProjOng_Dapper.Repository
             using (var db = new SqlConnection(_conn))
             {
                 db.Open();
-                var adotante = db.QueryFirstOrDefault<Adotante>(Adotante.SELECTONE, new {CPF = cpf });
-                return (Adotante) adotante;
+                var adotante = db.QueryFirst<Adotante>(Adotante.SELECTONE, new { CPF = cpf });
+                return (Adotante)adotante;
             }
         }
         public bool UpdateNome(string cpf, string nome)
@@ -120,7 +120,7 @@ namespace ProjOng_Dapper.Repository
             using (var db = new SqlConnection(_conn))
             {
                 db.Open();
-                var execute = db.Execute(Adotante.UPDATE_NUMERO, new { CPF = cpf, Numero = numero});
+                var execute = db.Execute(Adotante.UPDATE_NUMERO, new { CPF = cpf, Numero = numero });
                 if (execute != 0) //ou seja, se realmente a string de execução for modificada
                 {
                     //então, o dado daquela coluna foi atualizado (updated)
@@ -152,8 +152,8 @@ namespace ProjOng_Dapper.Repository
             using (var db = new SqlConnection(_conn))
             {
                 db.Open();
-                var execute = db.Execute(Adotante.UPDATE_BAIRRO, new { CPF = cpf,Bairro = bairro });
-                if (execute !=0) //ou seja, se realmente a string de execução for modificada
+                var execute = db.Execute(Adotante.UPDATE_BAIRRO, new { CPF = cpf, Bairro = bairro });
+                if (execute != 0) //ou seja, se realmente a string de execução for modificada
                 {
                     //então, o dado daquela coluna foi atualizado (updated)
                     updated = true;
@@ -233,20 +233,32 @@ namespace ProjOng_Dapper.Repository
             {
                 db.Open();
                 var execute = db.Execute(Adotante.DELETE_ALL);
-                if (execute != 0) //ou seja, se realmente a string de execução for modificada
+                if (execute > 0) //ou seja, se realmente a string de execução for executada
                 {
-                    //então, o dado daquela coluna foi atualizado (updated)
+                    Console.WriteLine("Todos os cadastros foram deletados!");
+                    //então, todos os dados foram deletados (deleted)
                     deleted = true;
                     return deleted;
                 }
             }
             return deleted;
-
         }
-
         public bool DeleteOneAdotante(string cpf)
         {
-            throw new NotImplementedException();
+            bool deleted = false;
+            using (var db = new SqlConnection(_conn))
+            {
+                db.Open();
+                var execute = db.Execute(Adotante.DELETE_ONE, new { CPF = cpf });
+                if (execute > 0) //ou seja, se realmente a string de execução for executada
+                {
+                    Console.WriteLine("O cadastro foi deletado com sucesso!");
+                    //então, o dado daquela coluna foi deletado (deleted)
+                    deleted = true;
+                    return deleted;
+                }
+            }
+            return deleted;
         }
     }
 }
