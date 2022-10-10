@@ -17,8 +17,10 @@ namespace ProjOng_Dapper.Model
         #endregion
 
         public readonly static string INSERT_ONE = "INSERT INTO dbo.Animal (CHIP, Familia, Raca, Sexo, Nome) VALUES (@CHIP, @Familia, @Raca, @Sexo, @Nome)";
+
         public readonly static string SELECT_ALL = "SELECT CHIP, Familia, Raca, Sexo, Nome FROM dbo.Animal";
         public readonly static string SELECT_ONE = "SELECT CHIP, Familia, Raca, Sexo, Nome FROM dbo.Animal WHERE CHIP = @CHIP";
+
         public readonly static string DELETE_ONE = "DELETE FROM dbo.Animal WHERE CHIP = @CHIP";
 
 

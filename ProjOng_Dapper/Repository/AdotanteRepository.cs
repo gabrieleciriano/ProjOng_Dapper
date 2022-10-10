@@ -238,6 +238,5 @@ namespace ProjOng_Dapper.Repository
             }
             return deleted;
         }
-        //verificar se o CPF existe
     }
 }
