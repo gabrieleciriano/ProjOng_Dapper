@@ -33,12 +33,8 @@ namespace ProjOng_Dapper.Repository
         }
         public List<Adotante> GetAllAdotante()
         {
-            using (var db = new SqlConnection(_conn))
-            {
-                db.Open();
-                var adotantes = db.Query<Adotante>(Adotante.SELECT);
-                return (List<Adotante>)adotantes;
-            }
+            throw new NotImplementedException();
+
         }
         public Adotante GetOneAdotante(string cpf)
         {

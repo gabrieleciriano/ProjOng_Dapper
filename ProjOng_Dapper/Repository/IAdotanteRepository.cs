@@ -9,14 +9,10 @@ namespace ProjOng_Dapper.Repository
 {
     public interface IAdotanteRepository
     {
-        //declaração dos metodos
-        //insert
+        
         bool AddAdotante(Adotante adotante);
-        //select all
         List<Adotante> GetAllAdotante();
-        //select one
         Adotante GetOneAdotante(string cpf);
-        //update de cada propriedade do Adotante menos o CPF
         bool UpdateNome(string cpf, string nome);
         bool UpdateSexo(string cpf, char sexo);
         bool UpdateDataNascimento(string cpf, string datanasc);

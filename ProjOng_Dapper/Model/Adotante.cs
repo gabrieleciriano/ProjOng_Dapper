@@ -34,9 +34,7 @@ namespace ProjOng_Dapper.Model
         #region DeleteOne
         public readonly static string DELETE_ONE = "DELETE FROM dbo.Adotante WHERE CPF = @CPF";
         #endregion
-        #region DeleteAll
-        public readonly static string DELETE_ALL = "DELETE FROM dbo.Adotante";
-        #endregion
+        #region Updates
         public readonly static string UPDATE_NOME = "UPDATE dbo.Adotante SET Nome= @Nome WHERE CPF=@CPF";
         public readonly static string UPDATE_SEXO = "UPDATE dbo.Adotante SET Sexo= @Sexo WHERE CPF=@CPF";
         public readonly static string UPDATE_DATANASC = "UPDATE dbo.Adotante SET DataNascimento= @DataNascimento WHERE CPF=@CPF";
@@ -48,6 +46,7 @@ namespace ProjOng_Dapper.Model
         public readonly static string UPDATE_CIDADE = "UPDATE dbo.Adotante SET Cidade= @Cidade WHERE CPF=@CPF";
         public readonly static string UPDATE_UF = "UPDATE dbo.Adotante SET UF= @UF WHERE CPF=@CPF";
         public readonly static string UPDATE_TELEFONE = "UPDATE dbo.Adotante SET Telefone= @Telefone WHERE CPF=@CPF";
+        #endregion
         public override string ToString()
         {
             return $"CPF: {this.CPF} \nNome: {this.Nome} \nSexo: {this.Sexo} \nData de Nascimento: {this.DataNascimento} \nEndereco: \nLogradouro {this.Logradouro}, Numero: {this.Numero}, CEP: {this.CEP}, Bairro: {this.Bairro}, Complemento: {this.Complemento}, Cidade: {this.Cidade}, UF: {this.UF} \nTelefone: {this.Telefone}".ToString();

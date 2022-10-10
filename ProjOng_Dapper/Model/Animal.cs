@@ -15,12 +15,17 @@ namespace ProjOng_Dapper.Model
         public char Sexo { get; set; }
         public string Nome { get; set; }
         #endregion
-        public readonly static string INSERT = "INSERT INTO dbo.Animal (CHIP, Familia, Raca, Sexo, Nome) VALUES (@CHIP, @Familia, @Raca, @Sexo, @Nome)";
-        public readonly static string SELECT = "SELECT CHIP, Familia, Raca, Sexo, Nome FROM dbo.Animal";
-        public readonly static string SELECTONE = "SELECT CHIP, Familia, Raca, Sexo, Nome FROM dbo.Animal WHERE CHIP = @CHIP";
-        public readonly static string DELETEONE = "DELETE FROM dbo.Animal WHERE CHIP = @CHIP";
-        public readonly static string DELETEALL = "DELETE FROM dbo.Animal";
-        //update de cada propriedade
+
+        public readonly static string INSERT_ONE = "INSERT INTO dbo.Animal (CHIP, Familia, Raca, Sexo, Nome) VALUES (@CHIP, @Familia, @Raca, @Sexo, @Nome)";
+        public readonly static string SELECT_ALL = "SELECT CHIP, Familia, Raca, Sexo, Nome FROM dbo.Animal";
+        public readonly static string SELECT_ONE = "SELECT CHIP, Familia, Raca, Sexo, Nome FROM dbo.Animal WHERE CHIP = @CHIP";
+        public readonly static string DELETE_ONE = "DELETE FROM dbo.Animal WHERE CHIP = @CHIP";
+
+
+        public readonly static string UPDATE_FAMILIA = "UPDATE dbo.Animal SET Familia= @Familia WHERE CHIP=@CHIP";
+        public readonly static string UPDATE_RACA = "UPDATE dbo.Animal SET Raca= @Raca WHERE CHIP=@CHIP";
+        public readonly static string UPDATE_SEXO = "UPDATE dbo.Animal SET Sexo= @Sexo WHERE CHIP=@CHIP";
+        public readonly static string UPDATE_NOME = "UPDATE dbo.Animal SET Nome= @Nome WHERE CHIP=@CHIP";
         public override string ToString()
         {
             return $"CHIP do Animal: {this.CHIP} \nFamilia: {this.Familia} \nRaça: {this.Raca} \nSexo: {this.Sexo} \nNome do animal: {this.Nome}".ToString();
