@@ -49,7 +49,7 @@ namespace ProjOng_Dapper.Model
         #endregion
         public override string ToString()
         {
-            return $"CPF: {this.CPF} \nNome: {this.Nome} \nSexo: {this.Sexo} \nData de Nascimento: {this.DataNascimento} \nEndereco: \nLogradouro {this.Logradouro}, Numero: {this.Numero}, CEP: {this.CEP}, Bairro: {this.Bairro}, Complemento: {this.Complemento}, Cidade: {this.Cidade}, UF: {this.UF} \nTelefone: {this.Telefone}".ToString();
+            return $"CPF: {this.CPF} \nNome: {this.Nome} \nSexo: {this.Sexo} \nData de Nascimento: {this.DataNascimento} \nEndereco: \nLogradouro {this.Logradouro} \nNumero: {this.Numero} \nCEP: {this.CEP} \nBairro: {this.Bairro} \nComplemento: {this.Complemento} \nCidade: {this.Cidade} \nUF: {this.UF} \nTelefone para contato: {this.Telefone}".ToString();
         }
     }
 }
