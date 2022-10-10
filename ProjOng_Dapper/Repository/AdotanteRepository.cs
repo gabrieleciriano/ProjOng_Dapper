@@ -198,9 +198,8 @@ namespace ProjOng_Dapper.Repository
             {
                 db.Open();
                 var execute = db.Execute(Adotante.UPDATE_UF, new { CPF = cpf, UF = uf, });
-                if (execute != 0) //ou seja, se realmente a string de execução for modificada
+                if (execute != 0) 
                 {
-                    //então, o dado daquela coluna foi atualizado (updated)
                     updated = true;
                     return updated;
                 }
@@ -230,10 +229,9 @@ namespace ProjOng_Dapper.Repository
             {
                 db.Open();
                 var execute = db.Execute(Adotante.DELETE_ONE, new { CPF = cpf });
-                if (execute > 0) //ou seja, se realmente a string de execução for executada
+                if (execute > 0) 
                 {
                     Console.WriteLine("O cadastro foi deletado com sucesso!");
-                    //então, o dado daquela coluna foi deletado (deleted)
                     deleted = true;
                     return deleted;
                 }
