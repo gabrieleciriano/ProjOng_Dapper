@@ -15,7 +15,6 @@ namespace ProjOng_Dapper.Repository
         private string _conn;
         public AdotanteRepository()
         {
-            //Passar a string de conexão
             _conn = DataBaseConfiguration.Get();
         }
         public bool AddAdotante(Adotante adotante)
@@ -26,8 +25,6 @@ namespace ProjOng_Dapper.Repository
                 db.Open();
                 db.Execute(Adotante.INSERT, adotante);
                 result = true;
-                //nao preciso de um close se estou usando o using
-                //o objeto de conexão db é destruido apos a utilização do using
             }
             return result;
         }
@@ -109,7 +106,7 @@ namespace ProjOng_Dapper.Repository
             }
             return updated;
         }
-        public bool UpdateNumero(string cpf, string numero)
+        public bool UpdateNumero(string cpf, int numero)
         {
             bool updated = false;
             using (var db = new SqlConnection(_conn))
@@ -125,7 +122,7 @@ namespace ProjOng_Dapper.Repository
             }
             return updated;
         }
-        public bool UpdateCEP(string cpf, string cep)
+        public bool UpdateCEP(string cpf, int cep)
         {
             bool updated = false;
             using (var db = new SqlConnection(_conn))

@@ -14,8 +14,8 @@ namespace ProjOng_Dapper.Model
         public char Sexo { get; set; }
         public string DataNascimento { get; set; }
         public string Logradouro { get; set; }
-        public string Numero { get; set; }
-        public string CEP { get; set; }
+        public int Numero { get; set; }
+        public int CEP { get; set; }
         public string Bairro { get; set; }
         public string Complemento { get; set; }
         public string Cidade { get; set; }
@@ -23,7 +23,7 @@ namespace ProjOng_Dapper.Model
         public string Telefone { get; set; }
         #endregion
         #region ConstantInsert
-        public readonly static string INSERT = "INSERT INTO dbo.Adotante (Nome, CPF, Sexo, DataNascimento, Logradouro, Numero, CEP, Bairro, Complemento, Cidade, UF, Telefone) VALUES (@Nome, @CPF, @Sexo, @DataNascimento, @Logradouro, @Numero, @CEP, @Bairro, @Complemento, @Cidade, @UF, @Telefone)";
+        public readonly static string INSERT = "INSERT INTO Adotante (Nome, CPF, Sexo, DataNascimento, Logradouro, Numero, CEP, Bairro, Complemento, Cidade, UF, Telefone) VALUES (@Nome, @CPF, @Sexo, @DataNascimento, @Logradouro, @Numero, @CEP, @Bairro, @Complemento, @Cidade, @UF, @Telefone)";
         #endregion
         #region SelectAll
         public readonly static string SELECT = "SELECT Nome, CPF, Sexo, DataNascimento, Logradouro, Numero, CEP, Bairro, Complemento, Cidade, UF, Telefone FROM dbo.Adotante";

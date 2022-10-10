@@ -17,8 +17,8 @@ namespace ProjOng_Dapper.Repository
         bool UpdateSexo(string cpf, char sexo);
         bool UpdateDataNascimento(string cpf, string datanasc);
         bool UpdateLogradouro(string cpf, string logradouro);
-        bool UpdateNumero(string cpf, string numero);
-        bool UpdateCEP(string cpf, string cep);
+        bool UpdateNumero(string cpf, int numero);
+        bool UpdateCEP(string cpf, int cep);
         bool UpdateBairro(string cpf, string bairro);
         bool UpdateComplemento(string cpf, string complemento);
         bool UpdateCidade(string cpf, string cidade);

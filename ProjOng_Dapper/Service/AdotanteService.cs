@@ -17,8 +17,6 @@ namespace ProjOng_Dapper.Service
             _adotanteRepository = new AdotanteRepository();
 
         }
-        //passar os metodos do repository para a classe service p conseguir acessar na program
-        //add todos os metodos aqui
         public bool AddAdotante(Adotante adotante)
         {
             return _adotanteRepository.AddAdotante(adotante);
@@ -47,33 +45,33 @@ namespace ProjOng_Dapper.Service
         {
             return _adotanteRepository.UpdateLogradouro(cpf, logradouro);
         }
-        public bool UpdateNumero(string cpf, string numero)
+        public bool UpdateNumero(string cpf, int numero)
         {
             return _adotanteRepository.UpdateNumero(cpf, numero);
         }
-        public bool UpdateCEP(string cpf, string cep)
+        public bool UpdateCEP(string cpf, int cep)
         {
-            return _adotanteRepository.UpdateNumero(cpf, cep);
+            return _adotanteRepository.UpdateCEP(cpf, cep);
         }
         public bool UpdateBairro(string cpf, string bairro)
         {
-            return _adotanteRepository.UpdateNumero(cpf, bairro);
+            return _adotanteRepository.UpdateBairro(cpf, bairro);
         }
         public bool UpdateComplemento(string cpf, string complemento)
         {
-            return _adotanteRepository.UpdateNumero(cpf, complemento);
+            return _adotanteRepository.UpdateComplemento(cpf, complemento);
         }
         public bool UpdateCidade(string cpf, string cidade)
         {
-            return _adotanteRepository.UpdateNumero(cpf, cidade);
+            return _adotanteRepository.UpdateCidade(cpf, cidade);
         }
         public bool UpdateUF(string cpf, string uf)
         {
-            return _adotanteRepository.UpdateNumero(cpf, uf);
+            return _adotanteRepository.UpdateUF(cpf, uf);
         }
         public bool UpdateTelefone(string cpf, string telefone)
         {
-            return _adotanteRepository.UpdateNumero(cpf, telefone);
+            return _adotanteRepository.UpdateTelefone(cpf, telefone);
         }
         public bool DeleteOneAdotante(string cpf)
         {

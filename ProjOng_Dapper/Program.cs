@@ -53,6 +53,22 @@ namespace ProjOng_Dapper
                 }
             } while (opc != 0);
         }
+        public static void MenuAnimal()
+        {
+
+        }
+        public static void CadastrarAnimal()
+        {
+
+        }
+        public static void SelectSpecificAnimal()
+        {
+
+        }
+        public static void SelectAllAnimals()
+        {
+
+        }
         public static void MenuAdotante()
         {
             int opc = 0;
@@ -165,9 +181,9 @@ namespace ProjOng_Dapper
             } while (adotante.Logradouro.Length > 50);
 
             Console.WriteLine("Informe o número da Residência: ");
-            adotante.Numero = Console.ReadLine();
+            adotante.Numero = int.Parse(Console.ReadLine());
             Console.WriteLine("Informe o CEP: ");
-            adotante.CEP = Console.ReadLine();
+            adotante.CEP = int.Parse(Console.ReadLine());
             do
             {
                 Console.WriteLine("Informe o bairro [Máximo 20 caracteres]: ");
@@ -229,7 +245,7 @@ namespace ProjOng_Dapper
                     Console.WriteLine("\nIMPOSSÍVEL CADASTRAR! \nTENTE NOVAMENTE!");
 
                 }
-            } while (adotante.UF.Length > 50);
+            } while (adotante.UF.Length > 2);
             do
             {
                 Console.WriteLine("Informe o Telefone para contato com o DDD sem caracteres especiais [Máximo 11 digítos]: ");
@@ -367,7 +383,7 @@ namespace ProjOng_Dapper
                     break;
                 case 5:
                     Console.WriteLine("Novo Número: ");
-                    string num = Console.ReadLine();
+                    int num = int.Parse(Console.ReadLine());
                     if (new AdotanteService().UpdateNumero(cpf, num) == true)
                     {
                         Console.WriteLine("\nNúmero alterado!");
@@ -379,7 +395,7 @@ namespace ProjOng_Dapper
 
                 case 6:
                     Console.WriteLine("Novo CEP: ");
-                    string cep = Console.ReadLine();
+                    int cep = int.Parse(Console.ReadLine());
                     if (new AdotanteService().UpdateCEP(cpf, cep) == true)
                     {
                         Console.WriteLine("\nCEP alterado!");
