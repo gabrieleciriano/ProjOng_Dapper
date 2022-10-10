@@ -44,6 +44,7 @@ namespace ProjOng_Dapper
                             break;
 
                         case 3:
+                            MenuAdocao();
                             break;
 
                         default:
@@ -94,12 +95,13 @@ namespace ProjOng_Dapper
                         case 4:
                             SelectAllAnimals();
                             break;
+
                         case 5:
                             UpdateAnimal();
                             break;
 
                         case 6:
-                            //DeleteOneAdotante();
+                            DeleteOneAnimal();
                             break;
 
                         default:
@@ -108,6 +110,167 @@ namespace ProjOng_Dapper
                     }
                 }
             } while (opc <= 0 || opc > 6);
+        }
+        public static void MenuAdotante()
+        {
+            int opc = 0;
+            do
+            {
+                Console.Clear();
+                Console.WriteLine(">>>MENU ADOTANTE<<<");
+                Console.WriteLine("1 - Voltar ao Menu Principal");
+                Console.WriteLine("2 - Cadastrar Adotante");
+                Console.WriteLine("3 - Buscar adotante específico");
+                Console.WriteLine("4 - Visualizar todos os adotantes cadastrados");
+                Console.WriteLine("5 - Editar dados de um cadastro existente");
+                Console.WriteLine("6 - Deletar adotante específico");
+                Console.WriteLine("\n>>Informe o que deseja acessar...");
+                opc = int.Parse(Console.ReadLine());
+                if (opc <= 0 || opc > 6)
+                    Console.WriteLine("OPÇÃO INVÁLIDA! Informe um número válido para acessar o menu:");
+                else
+                {
+                    Console.Clear();
+                    switch (opc)
+                    {
+                        case 1:
+                            MenuPrincipal();
+                            break;
+
+                        case 2:
+                            CadastrarAdotante();
+                            break;
+
+                        case 3:
+                            Console.Clear();
+                            Adotante adotante = new Adotante();
+                            Console.WriteLine("**BUSCAR CADASTRO ESPECÍFICO**");
+                            SelectSpecificAdotante();
+                            break;
+
+                        case 4:
+                            SelectAllAdotante();
+                            break;
+
+                        case 5:
+                            UpdateAdotante();
+                            break;
+
+                        case 6:
+                            DeleteOneAdotante();
+                            break;
+
+                        default:
+                            Console.WriteLine("OPÇÃO INVÁLIDA! Informe uma das opções segundo o menu!");
+                            break;
+                    }
+                }
+            } while (opc <= 0 || opc > 6);
+        }
+        public static void MenuAdocao()
+        {
+            int opc = 0;
+            do
+            {
+                Console.Clear();
+                Console.WriteLine(">>>MENU DA ADOÇÃO DE ANIMAIS<<<");
+                Console.WriteLine("\n");
+                Console.WriteLine("1 - Voltar ao Menu Principal");
+                Console.WriteLine("2 - Cadastrar Adoção");
+                Console.WriteLine("3 - Buscar adoção específica");
+                Console.WriteLine("4 - Visualizar todas as adoções cadastradas");
+                Console.WriteLine("5 - Deletar cadastro de adoção específica");
+                Console.WriteLine("\n>>Informe o que deseja acessar...");
+                opc = int.Parse(Console.ReadLine());
+                if (opc <= 0 || opc > 5)
+                    Console.WriteLine("OPÇÃO INVÁLIDA! Informe um número válido para acessar o menu:");
+                else
+                {
+                    Console.Clear();
+                    switch (opc)
+                    {
+                        case 1:
+                            MenuPrincipal();
+                            break;
+
+                        case 2:
+                            CadastrarAdocao();
+                            break;
+
+                        case 3:
+                            Console.Clear();
+                            Adocao adocao = new Adocao();
+                            Console.WriteLine("**VIZUALIZAR ADOÇÃO ESPECÍFICA**");
+                            SelectSpecificAdocao();
+                            break;
+
+                        case 4:
+                            SelectAllAnimals();
+                            break;
+
+                        case 5:
+                            UpdateAnimal();
+                            break;
+
+                        case 6:
+                            DeleteOneAnimal();
+                            break;
+
+                        default:
+                            Console.WriteLine("OPÇÃO INVÁLIDA! Informe uma das opções segundo o menu!");
+                            break;
+                    }
+                }
+            } while (opc <= 0 || opc > 5);
+        }
+        public static void CadastrarAdocao()
+        {
+            Adocao adocao = new Adocao();
+            Console.WriteLine("----EFETUANDO ADOÇÃO----");
+            Console.WriteLine("Deseja realmente realizar uma adoção ? [1 - SIM, 2 - NÃO]");
+            int escolha = int.Parse(Console.ReadLine());
+            if (escolha == 1)
+            {
+
+                Console.WriteLine("Informe o CPF do adotante: ");
+                adocao.CPF = Console.ReadLine();
+                Adotante adotante = new AdotanteService().GetOneAdotante(adocao.CPF);
+                Console.WriteLine("----------------------------------------");
+                Console.WriteLine(adotante.ToString());
+                Console.WriteLine("-----------------------------------------");
+                Console.ReadKey();
+                Console.WriteLine("Informe o CHIP de identificação do animal que vai ser adotado: ");
+                adocao.CHIP = int.Parse(Console.ReadLine());
+                Animal animal = new AnimalService().GetOneAnimal(adocao.CHIP);
+                Console.WriteLine("----------------------------------------");
+                Console.WriteLine(animal.ToString());
+                Console.WriteLine("-----------------------------------------");
+                Console.ReadKey();
+                adocao.DataAdocao = DateTime.Now;
+                Console.WriteLine("Confirmar adoção: [1 - SIM, 2 - Não]");
+                int ad = int.Parse(Console.ReadLine());
+                if (ad == 1)
+                {
+                    new AdocaoService().AddAdocao(adocao);
+                    Console.WriteLine("\n**Adoção realizada com sucesso!**");
+                    Console.ReadKey();
+                }
+            }
+            else
+                MenuAdocao();
+        }
+        public static void SelectSpecificAdocao()
+        {
+            Adocao adocao = new Adocao();
+            Console.WriteLine("Informe o CPF do tutor: ");
+            adocao.CPF = Console.ReadLine();
+            Console.WriteLine("Informe o CHIP de identificação do animal adotado: ");
+            adocao.CHIP = int.Parse(Console.ReadLine());
+            adocao = new AdocaoService().GetOneAdocao(adocao.CPF, adocao.CHIP);
+            Console.WriteLine("----------------------------------------");
+            Console.WriteLine(adocao);
+            Console.WriteLine("-----------------------------------------");
+            Console.ReadKey();
         }
         public static void CadastrarAnimal()
         {
@@ -192,7 +355,6 @@ namespace ProjOng_Dapper
             {
                 Console.WriteLine("\nVisualização cancelada!");
                 Console.ReadKey();
-
             }
         }
         public static void UpdateAnimal()
@@ -316,64 +478,30 @@ namespace ProjOng_Dapper
                     break;
             }
         }
-        public static void MenuAdotante()
+        public static void DeleteOneAnimal()
         {
-            int opc = 0;
-            do
+            Console.WriteLine("Informe o CHIP do animal que deseja deletar o cadastro: ");
+            int chip = int.Parse(Console.ReadLine());
+            Animal animal = new AnimalService().GetOneAnimal(chip);
+            Console.WriteLine("----------------------------------------");
+            Console.WriteLine(animal.ToString());
+            Console.ReadKey();
+            Console.WriteLine("Deseja realmente deletar esse cadastro? [1 - SIM, 2 - NÃO]: ");
+            int escolha = int.Parse(Console.ReadLine());
+            if (escolha == 1)
             {
-                Console.Clear();
-                Console.WriteLine(">>>MENU ADOTANTE<<<");
-                Console.WriteLine("1 - Voltar ao Menu Principal");
-                Console.WriteLine("2 - Cadastrar Adotante");
-                Console.WriteLine("3 - Buscar adotante específico");
-                Console.WriteLine("4 - Visualizar todos os adotantes cadastrados");
-                Console.WriteLine("5 - Editar dados de um cadastro existente");
-                Console.WriteLine("6 - Deletar adotante específico");
-                Console.WriteLine("\n>>Informe o que deseja acessar...");
-                opc = int.Parse(Console.ReadLine());
-                if (opc <= 0 || opc > 6)
-                    Console.WriteLine("OPÇÃO INVÁLIDA! Informe um número válido para acessar o menu:");
-                else
+                if (new AnimalService().DeleteOneAnimal(chip) == true)
                 {
-                    Console.Clear();
-                    switch (opc)
-                    {
-                        case 1:
-                            MenuPrincipal();
-                            break;
-
-                        case 2:
-                            CadastrarAdotante();
-                            break;
-
-                        case 3:
-                            Console.Clear();
-                            Adotante adotante = new Adotante();
-                            Console.WriteLine("**BUSCAR CADASTRO ESPECÍFICO**");
-                            SelectSpecificAdotante();
-                            break;
-
-                        case 4:
-                            // Console.WriteLine("Realmente deseja vizualizar todos os cadastros?");
-                            adotante = new Adotante();
-                            new AdotanteService().GetAllAdotante().ForEach(x => Console.WriteLine(x));
-                            Console.ReadKey();
-                            //Console.WriteLine("Cheguei aqui");
-                            break;
-                        case 5:
-                            UpdateAdotante();
-                            break;
-
-                        case 6:
-                            DeleteOneAdotante();
-                            break;
-
-                        default:
-                            Console.WriteLine("OPÇÃO INVÁLIDA! Informe uma das opções segundo o menu!");
-                            break;
-                    }
+                    Console.ReadKey();
                 }
-            } while (opc <= 0 || opc > 6);
+                else
+                    Console.WriteLine("\nAlteração inválida!");
+            }
+            else
+            {
+                Console.WriteLine("Exclusão do cadastro cancelada!");
+                Console.ReadKey();
+            }
         }
         static public void CadastrarAdotante()
         {
@@ -780,8 +908,8 @@ namespace ProjOng_Dapper
             Adotante adotante = new AdotanteService().GetOneAdotante(cpf);
             Console.WriteLine("----------------------------------------");
             Console.WriteLine(adotante.ToString());
-            Console.ReadKey();
-            Console.WriteLine("Deseja realmente deletar esse cadastro? [1 - SIM, 2 - NÃO]: ");
+            Console.WriteLine("----------------------------------------");
+            Console.WriteLine("\nDeseja realmente deletar esse cadastro? [1 - SIM, 2 - NÃO]: ");
             int escolha = int.Parse(Console.ReadLine());
             if (escolha == 1)
             {
@@ -793,7 +921,10 @@ namespace ProjOng_Dapper
                     Console.WriteLine("\nAlteração inválida!");
             }
             else
+            {
                 Console.WriteLine("Exclusão do cadastro cancelada!");
+                Console.ReadKey();
+            }
         }
         static void Main(string[] args)
         {
