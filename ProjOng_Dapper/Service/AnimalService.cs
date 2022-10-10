@@ -23,27 +23,27 @@ namespace ProjOng_Dapper.Service
         {
             return _animalRepository.GetAllAnimal();
         }
-        public Animal GetOneAnimal(string chip)
+        public Animal GetOneAnimal(int chip)
         {
             return _animalRepository.GetOneAnimal(chip);
         }
-        public bool UpdateFamilia(string cpf, string familia)
+        public bool UpdateFamilia(int chip, string familia)
         {
-            return _animalRepository.UpdateFamilia(cpf, familia);
+            return _animalRepository.UpdateFamilia(chip, familia);
         }
-        public bool UpdateRaca(string cpf, string raca)
+        public bool UpdateRaca(int chip, string raca)
         {
-            return _animalRepository.UpdateRaca(cpf, raca);
+            return _animalRepository.UpdateRaca(chip, raca);
         }
-        public bool UpdateSexo(string cpf, char sexo)
+        public bool UpdateSexo(int chip, char sexo)
         {
-            return _animalRepository.UpdateSexo(cpf, sexo);
+            return _animalRepository.UpdateSexo(chip, sexo);
         }
-        public bool UpdateNome(string cpf, string nome)
+        public bool UpdateNome(int chip, string nome)
         {
-            return _animalRepository.UpdateNome(cpf, nome);
+            return _animalRepository.UpdateNome(chip, nome);
         }
-        public bool DeleteOneAnimal(string chip)
+        public bool DeleteOneAnimal(int chip)
         {
             return _animalRepository.DeleteOneAnimal(chip);
         }

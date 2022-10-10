@@ -30,7 +30,12 @@ namespace ProjOng_Dapper.Repository
         }
         public List<Adotante> GetAllAdotante()
         {
-            throw new NotImplementedException();
+            using (var db = new SqlConnection(_conn))
+            {
+                db.Open();
+                var adotante = db.Query<Adotante>(Adotante.SELECT);
+                return (List<Adotante>)adotante;
+            }
 
         }
         public Adotante GetOneAdotante(string cpf)

@@ -31,9 +31,14 @@ namespace ProjOng_Dapper.Repository
         }
         public List<Animal> GetAllAnimal()
         {
-            throw new NotImplementedException();
+            using (var db = new SqlConnection(_conn))
+            {
+                db.Open();
+                var animal = db.Query<Animal>(Animal.SELECT_ALL);
+                return (List<Animal>)animal;
+            }
         }
-        public Animal GetOneAnimal(string chip)
+        public Animal GetOneAnimal(int chip)
         {
             using (var db = new SqlConnection(_conn))
             {
@@ -42,7 +47,7 @@ namespace ProjOng_Dapper.Repository
                 return (Animal)animal;
             }
         }
-        public bool UpdateFamilia(string chip, string familia)
+        public bool UpdateFamilia(int chip, string familia)
         {
             bool updated = false;
             using (var db = new SqlConnection(_conn))
@@ -57,13 +62,13 @@ namespace ProjOng_Dapper.Repository
             }
             return updated;
         }
-        public bool UpdateRaca(string chip, string raca)
+        public bool UpdateRaca(int chip, string raca)
         {
             bool updated = false;
             using (var db = new SqlConnection(_conn))
             {
                 db.Open();
-                var execute = db.Execute(Animal.UPDATE_RACA, new { CHIP = chip, Nome = raca });
+                var execute = db.Execute(Animal.UPDATE_RACA, new { CHIP = chip, Raca = raca });
                 if (execute != 0)
                 {
                     updated = true;
@@ -72,7 +77,7 @@ namespace ProjOng_Dapper.Repository
             }
             return updated;
         }
-        public bool UpdateSexo(string chip, char sexo)
+        public bool UpdateSexo(int chip, char sexo)
         {
             bool updated = false;
             using (var db = new SqlConnection(_conn))
@@ -87,7 +92,7 @@ namespace ProjOng_Dapper.Repository
             }
             return updated;
         }
-        public bool UpdateNome(string chip, string nome)
+        public bool UpdateNome(int chip, string nome)
         {
             bool updated = false;
             using (var db = new SqlConnection(_conn))
@@ -102,7 +107,7 @@ namespace ProjOng_Dapper.Repository
             }
             return updated;
         }
-        public bool DeleteOneAnimal(string chip)
+        public bool DeleteOneAnimal(int chip)
         {
             bool deleted = false;
             using (var db = new SqlConnection(_conn))

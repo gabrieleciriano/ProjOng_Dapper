@@ -11,12 +11,12 @@ namespace ProjOng_Dapper.Repository
     {
         bool AddAnimal(Animal animal);
         List<Animal> GetAllAnimal();
-        Animal GetOneAnimal(string chip);
-        bool UpdateFamilia(string chip, string familia);
-        bool UpdateRaca(string chip, string raca);
-        bool UpdateSexo(string chip, char sexo);  
-        bool UpdateNome(string chip, string nome);
-        bool DeleteOneAnimal(string chip);
+        Animal GetOneAnimal(int chip);
+        bool UpdateFamilia(int chip, string familia);
+        bool UpdateRaca(int chip, string raca);
+        bool UpdateSexo(int chip, char sexo);  
+        bool UpdateNome(int chip, string nome);
+        bool DeleteOneAnimal(int chip);
 
     }
 }

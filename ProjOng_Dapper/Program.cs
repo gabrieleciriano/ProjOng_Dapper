@@ -13,7 +13,8 @@ namespace ProjOng_Dapper
             do
             {
                 Console.Clear();
-                Console.WriteLine(">>>ADOÇÃO DE ANIMAIS<<<");
+                Console.WriteLine(">>>ADOÇÃO DE ANIMAIS DA ONG<<<");
+                Console.WriteLine("\n");
                 Console.WriteLine("0 - Sair do Menu Principal");
                 Console.WriteLine("1 - Menu Adotante");
                 Console.WriteLine("2 - Menu Animal");
@@ -39,11 +40,10 @@ namespace ProjOng_Dapper
                             break;
 
                         case 2:
-                            // MenuAnimal();
+                            MenuAnimal();
                             break;
 
                         case 3:
-                            // MenuAdocao();
                             break;
 
                         default:
@@ -55,19 +55,266 @@ namespace ProjOng_Dapper
         }
         public static void MenuAnimal()
         {
+            int opc = 0;
+            do
+            {
+                Console.Clear();
+                Console.WriteLine(">>>MENU ANIMAL<<<");
+                Console.WriteLine("\n");
+                Console.WriteLine("1 - Voltar ao Menu Principal");
+                Console.WriteLine("2 - Cadastrar Animal");
+                Console.WriteLine("3 - Buscar animal específico");
+                Console.WriteLine("4 - Visualizar todos os animais cadastrados");
+                Console.WriteLine("5 - Editar dados de um cadastro existente");
+                Console.WriteLine("6 - Deletar animal específico");
+                Console.WriteLine("\n>>Informe o que deseja acessar...");
+                opc = int.Parse(Console.ReadLine());
+                if (opc <= 0 || opc > 6)
+                    Console.WriteLine("OPÇÃO INVÁLIDA! Informe um número válido para acessar o menu:");
+                else
+                {
+                    Console.Clear();
+                    switch (opc)
+                    {
+                        case 1:
+                            MenuPrincipal();
+                            break;
 
+                        case 2:
+                            CadastrarAnimal();
+                            break;
+
+                        case 3:
+                            Console.Clear();
+                            Animal animal = new Animal();
+                            Console.WriteLine("**BUSCAR CADASTRO ESPECÍFICO**");
+                            SelectSpecificAnimal();
+                            break;
+
+                        case 4:
+                            SelectAllAnimals();
+                            break;
+                        case 5:
+                            UpdateAnimal();
+                            break;
+
+                        case 6:
+                            //DeleteOneAdotante();
+                            break;
+
+                        default:
+                            Console.WriteLine("OPÇÃO INVÁLIDA! Informe uma das opções segundo o menu!");
+                            break;
+                    }
+                }
+            } while (opc <= 0 || opc > 6);
         }
         public static void CadastrarAnimal()
         {
+            Animal animal = new Animal();
+            Console.WriteLine("Numero do CHIP de identificação do animal: ");
+            animal.CHIP = int.Parse(Console.ReadLine());
+            do
+            {
+                Console.WriteLine("A qual Familia o animal pertence: [Ex: Gato, Cachorro]");
+                animal.Familia = Console.ReadLine();
+                if (animal.Familia.Length > 50)
+                {
+                    Console.WriteLine("\nIMPOSSÍVEL CADASTRAR! \nTENTE NOVAMENTE!");
 
+                }
+            } while (animal.Familia.Length > 50);
+
+            do
+            {
+                Console.WriteLine("Raça do animal: [Ex: Vira-Lata, Pitbull, ShihTzu]");
+                animal.Raca = Console.ReadLine();
+                if (animal.Raca.Length > 20)
+                {
+                    Console.WriteLine("\nIMPOSSÍVEL CADASTRAR! \nTENTE NOVAMENTE!");
+
+                }
+            } while (animal.Raca.Length > 20);
+
+            do
+            {
+                Console.WriteLine("Sexo do animal : [M - Macho, F - Fêmea] : ");
+                animal.Sexo = char.Parse(Console.ReadLine().ToUpper());
+                if (animal.Sexo != 'M' && animal.Sexo != 'F')
+                {
+                    Console.WriteLine("OPÇÃO INVÁLIDA! INFORME [M ou F] ");
+                }
+            } while (animal.Sexo != 'M' && animal.Sexo != 'F');
+            Console.WriteLine("Animal já possui um nome? [1 - SIM, 2 - NÃO]");
+            int op = int.Parse(Console.ReadLine());
+            if (op == 1)
+            {
+                do
+                {
+                    Console.WriteLine("Nome do animal: ");
+                    animal.Nome = Console.ReadLine();
+                    if (animal.Nome.Length > 50)
+                    {
+                        Console.WriteLine("\nIMPOSSÍVEL CADASTRAR! \nTENTE NOVAMENTE!");
+
+                    }
+                } while (animal.Nome.Length > 50);
+            }
+            else
+                animal.Nome = "--";
+            new AnimalService().AddAnimal(animal);
+            Console.WriteLine("**\nCadastro realizado com sucesso!**");
+            Console.ReadKey();
         }
         public static void SelectSpecificAnimal()
         {
-
+            Console.WriteLine("Informe o CHIP do animal que deseja visualizar o cadastro: ");
+            int chip = int.Parse(Console.ReadLine());
+            Animal animal = new AnimalService().GetOneAnimal(chip);
+            Console.WriteLine("----------------------------------------");
+            Console.WriteLine(animal.ToString());
+            Console.WriteLine("-----------------------------------------");
+            Console.ReadKey();
         }
         public static void SelectAllAnimals()
         {
+            Console.WriteLine("Realmente deseja vizualizar todos os cadastros de animais? [1 - SIM, 2 - NÃO]: ");
+            int escolha = int.Parse(Console.ReadLine());
+            if (escolha == 1)
+            {
+                Animal animal = new Animal();
+                Console.WriteLine("---------------------------------------------------");
+                new AnimalService().GetAllAnimal().ForEach(x => Console.WriteLine(x));
+                Console.WriteLine("----------------------------------------------------");
+                Console.ReadKey();
+            }
+            else
+            {
+                Console.WriteLine("\nVisualização cancelada!");
+                Console.ReadKey();
 
+            }
+        }
+        public static void UpdateAnimal()
+        {
+            Console.WriteLine("Informe o CHIP de identificaçãp do animal que deseja editar o cadastro: ");
+            int chip = int.Parse(Console.ReadLine());
+            Console.WriteLine("--------------------------------------------------");
+            Animal animal = new AnimalService().GetOneAnimal(chip);
+            Console.WriteLine(animal.ToString());
+            Console.WriteLine("--------------------------------------------------");
+            Console.WriteLine(">>>EDITAR CADASTRO<<<");
+            Console.WriteLine("0 - VOLTAR AO MENU ANIMAL");
+            Console.WriteLine("1 - Editar NOME");
+            Console.WriteLine("2 - Editar FAMILIA");
+            Console.WriteLine("3 - Editar RAÇA");
+            Console.WriteLine("4 - Editar SEXO");
+            Console.WriteLine("\n>>>Escolha entre as opções: ");
+            int op = int.Parse(Console.ReadLine());
+            Console.Clear();
+            switch (op)
+            {
+                case 0:
+                    MenuAdotante();
+                    break;
+                case 1:
+                    Console.WriteLine("Informe o novo nome: ");
+                    string nome = Console.ReadLine();
+                    if (new AnimalService().UpdateNome(chip, nome) == true)
+                    {
+                        Console.WriteLine("\nNome Alterado!");
+                        Console.ReadKey();
+                    }
+                    else
+                    {
+                        Console.WriteLine("\nAlteração inválida!");
+                        Console.ReadKey();
+                    }
+                    break;
+
+                case 2:
+                    string familia;
+                    do
+                    {
+                        Console.WriteLine("Informe a Familia: [Ex: Gato, Cachorro]");
+                        familia = Console.ReadLine();
+                        if (familia.Length <= 0 && familia.Length > 50)
+                        {
+                            Console.WriteLine("\nIMPOSSÍVEL CADASTRAR! \nTENTE NOVAMENTE!");
+                        }
+                        else
+                        {
+                            if (new AnimalService().UpdateFamilia(chip, familia) == true)
+                            {
+                                Console.WriteLine("\nFamília Alterada!");
+                                Console.ReadKey();
+                            }
+                            else
+                            {
+                                Console.WriteLine("\nAlteração inválida!");
+                                Console.ReadKey();
+                            }
+                        }
+                    } while (familia.Length <= 0 && familia.Length > 50);
+                    break;
+
+                case 3:
+                    string raca;
+                    do
+                    {
+                        Console.WriteLine("Informe a raça do animal: [Ex: Vira-Lata, Pitbull, ShihTzu]");
+                        raca = Console.ReadLine();
+                        if (raca.Length <= 0 && raca.Length > 20)
+                        {
+                            Console.WriteLine("\nIMPOSSÍVEL CADASTRAR! \nTENTE NOVAMENTE!");
+
+                        }
+                        else
+                        {
+                            if (new AnimalService().UpdateRaca(chip, raca) == true)
+                            {
+                                Console.WriteLine("\nRaça Alterada!");
+                                Console.ReadKey();
+                            }
+                            else
+                            {
+                                Console.WriteLine("\nAlteração inválida!");
+                                Console.ReadKey();
+                            }
+                        }
+                    } while (raca.Length <= 0 && raca.Length > 20);
+                    break;
+
+                case 4:
+                    char s;
+                    do
+                    {
+                        Console.WriteLine("Informe o sexo do animal: [M - Macho, F - Fêmea] : ");
+                        s = char.Parse(Console.ReadLine().ToUpper());
+                        if (s != 'M' && s != 'F')
+                        {
+                            Console.WriteLine("OPÇÃO INVÁLIDA! INFORME [M OU F] ");
+                        }
+                        else
+                        {
+                            if (new AnimalService().UpdateSexo(chip, s) == true)
+                            {
+                                Console.WriteLine("\nSexo Alterado!");
+                                Console.ReadKey();
+                            }
+                            else
+                            {
+                                Console.WriteLine("\nAlteração inválida!");
+                                Console.ReadKey();
+                            }
+                        }
+                    } while (s != 'M' && s != 'F');
+                    break;
+
+                default:
+                    Console.WriteLine("\nINFORME UMA DAS OPÇÕES NO MENU!");
+                    break;
+            }
         }
         public static void MenuAdotante()
         {
@@ -275,7 +522,7 @@ namespace ProjOng_Dapper
         {
             Console.WriteLine("Realmente deseja vizualizar todos os cadastros?");
             int escolha = int.Parse(Console.ReadLine());
-            if(escolha == 1)
+            if (escolha == 1)
             {
                 Adotante adotante = new Adotante();
                 Console.WriteLine("---------------------------------------------------");
@@ -284,16 +531,20 @@ namespace ProjOng_Dapper
                 Console.ReadKey();
             }
             else
-                Console.WriteLine("Visualização cancelada!");
+            {
+                Console.WriteLine("\nVisualização cancelada!");
+                Console.ReadKey();
+            }
         }
         static public void UpdateAdotante()
         {
-            //usar um console clear depois
+
             Console.WriteLine("Informe o CPF do adotante que deseja editar o cadastro: ");
             string cpf = Console.ReadLine();
             Console.WriteLine("--------------------------------------------------");
             Adotante adotante = new AdotanteService().GetOneAdotante(cpf);
             Console.WriteLine(adotante.ToString());
+            Console.WriteLine("--------------------------------------------------");
 
             Console.WriteLine(">>>EDITAR CADASTRO<<<");
             Console.WriteLine("0 - VOLTAR AO MENU ADOTANTE");
@@ -308,8 +559,9 @@ namespace ProjOng_Dapper
             Console.WriteLine("9 - Editar CIDADE");
             Console.WriteLine("10 - Editar UF");
             Console.WriteLine("11 - Editar TELEFONE");
-            Console.WriteLine("\nEscolha entre as opções: ");
+            Console.WriteLine("\n>>>Escolha entre as opções: ");
             int op = int.Parse(Console.ReadLine());
+            Console.Clear();
             switch (op)
             {
                 case 0:
@@ -479,7 +731,10 @@ namespace ProjOng_Dapper
                         Console.ReadKey();
                     }
                     else
+                    {
                         Console.WriteLine("\nAlteração inválida!");
+                        Console.ReadKey();
+                    }
                     break;
 
                 case 11:
@@ -501,7 +756,10 @@ namespace ProjOng_Dapper
                                 Console.ReadKey();
                             }
                             else
+                            {
                                 Console.WriteLine("\nAlteração inválida!");
+                                Console.ReadKey();
+                            }
                         }
                     }
                     catch
@@ -525,7 +783,7 @@ namespace ProjOng_Dapper
             Console.ReadKey();
             Console.WriteLine("Deseja realmente deletar esse cadastro? [1 - SIM, 2 - NÃO]: ");
             int escolha = int.Parse(Console.ReadLine());
-            if(escolha == 1)
+            if (escolha == 1)
             {
                 if (new AdotanteService().DeleteOneAdotante(cpf) == true)
                 {
